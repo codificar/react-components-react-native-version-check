@@ -1,0 +1,29 @@
+{
+  "name": "@codificar/react-native-version-check",
+  "version": "1.0.0",
+  "description": "A generic component to react native",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://git.codificar.com.br/react-components/react-native-version-check"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "prop-types": "^15.7.2",
+    "semver": "^5.6.0"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.47.0",
+    "react-native-device-info": ">=0.20.0"
+  },
+  "author": "Codificar",
+  "bugs": {
+    "url": "https://git.codificar.com.br/react-components/react-native-version-check/issues"
+  },
+  "homepage": "https://git.codificar.com.br/react-components/react-native-version-check#readme"
+}

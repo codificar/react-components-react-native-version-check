@@ -8,6 +8,7 @@ export async function checkVersion({
   currentVersion: currentVersionDefault,
   bundleId: bundleIdDefault,
   country = "br",
+  baseUrl: url
 }) {
   try {
     const android = Platform.OS === "android";
@@ -31,28 +32,23 @@ export async function checkVersion({
 
     if (ios) {
       try {
-        const url = `http://itunes.apple.com/lookup?lang=pt&bundleId=${bundleId}&country=${country}`;
-        const { data } = await axios.get(url);
+        const response = await axios.post(url, {
+			bundle_id: bundleId,
+			type: 'ios'
+		});
 
-        if (!data || !("results" in data)) {
-          throw new Error("Unknown error connecting to iTunes.");
-        }
-        if (!data.results.length) {
-          throw new Error("App for this bundle ID not found.");
-        }
-        let res = data.results[0];
+		if (!response.status == 200) return;
+	
+		const json = response.data;
 
-        const needsUpdate = versionCompare(currentVersion, res.version);
-
-        storeUrl =
-          res.trackViewUrl || res.artistViewUrl || res.sellerUrl || null;
+        const needsUpdate = versionCompare(currentVersion, json.version);
 
         return {
           ...needsUpdate,
-          version: res.version || null,
-          released: res.currentVersionReleaseDate || res.releaseDate || null,
-          notes: res.releaseNotes || "",
-          url: res.trackViewUrl || res.artistViewUrl || res.sellerUrl || null,
+          version: json.version || null,
+          released: json.currentVersionReleaseDate || json.releaseDate || null,
+          notes: json.releaseNotes || "",
+          url: json.trackViewUrl || json.artistViewUrl || json.sellerUrl || null,
           country,
           lastChecked: new Date().toISOString(),
         };
@@ -62,31 +58,21 @@ export async function checkVersion({
     }
 
     if (android) {
-      const url = `https://play.google.com/store/apps/details?id=${bundleId}&hl=en`;
       try {
-        const { data } = await axios.get(url);
+		const response  = await axios.post(url, {
+			bundle_id: bundleId,
+			type: 'android'
+		});
 
-        let res = data;
-        const startToken = "Current Version";
-        const endToken = "Requires";
-        const indexStart = res.indexOf(startToken);
-
-        res = res.substr(indexStart + startToken.length);
-
-        const indexEnd = res.indexOf(endToken);
-
-        const version = res
-          .substr(0, indexEnd)
-          .replace(/<[^>]+>/g, "")
-          .trim();
-
-        storeUrl = `https://play.google.com/store/apps/details?id=${bundleId}`;
-
-        const needsUpdate = versionCompare(currentVersion, version);
+		if (!response.status == 200) return;
+	
+		const json = response.data;
+		
+		const needsUpdate = versionCompare(currentVersion, json.version);
 
         return {
           ...needsUpdate,
-          version: version || null,
+          version: json.version || null,
           released: new Date(),
           notes: "",
           url: `https://play.google.com/store/apps/details?id=${bundleId}`,

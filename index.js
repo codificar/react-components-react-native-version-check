@@ -33,13 +33,13 @@ export async function checkVersion({
     if (ios) {
       try {
         const response = await axios.post(url, {
-			bundle_id: bundleId,
-			type: 'ios'
-		});
+			    bundle_id: bundleId,
+			    type: 'ios'
+		    });
 
-		if (!response.status == 200) return;
+		    if (!response.status == 200) return;
 	
-		const json = response.data;
+		    const json = response.data;
 
         const needsUpdate = versionCompare(currentVersion, json.version);
 
@@ -59,17 +59,19 @@ export async function checkVersion({
 
     if (android) {
       try {
-		const response  = await axios.post(url, {
-			bundle_id: bundleId,
-			type: 'android'
-		});
+        const response  = await axios.post(url, {
+          bundle_id: bundleId,
+          type: 'android'
+        });
 
-		if (!response.status == 200) return;
+		    if (!response.status == 200) return;
 	
-		const json = response.data;
+		    const json = response.data;
 		
-		const needsUpdate = versionCompare(currentVersion, json.version);
+		    const needsUpdate = versionCompare(currentVersion, json.version);
 
+        storeUrl = `https://play.google.com/store/apps/details?id=${bundleId}`;
+        
         return {
           ...needsUpdate,
           version: json.version || null,

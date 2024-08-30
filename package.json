@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://git.codificar.com.br/react-components/react-native-version-check"
+    "url": "git+https://github.com/codificar/react-components-react-native-version-check"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -23,7 +23,7 @@
   },
   "author": "Codificar",
   "bugs": {
-    "url": "https://git.codificar.com.br/react-components/react-native-version-check/issues"
+    "url": "https://github.com/codificar/react-components-react-native-version-check/issues"
   },
-  "homepage": "https://git.codificar.com.br/react-components/react-native-version-check#readme"
+  "homepage": "https://github.com/codificar/react-components-react-native-version-check#readme"
 }

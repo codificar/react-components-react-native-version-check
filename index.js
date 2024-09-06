@@ -2,6 +2,9 @@ import { Alert, NativeModules, Platform, Linking } from "react-native";
 import { versionCompare } from "./utils";
 import axios from "axios";
 
+// Locales
+import { strings } from './Locales/i18n';
+
 let storeUrl = null;
 
 export async function checkVersion({
@@ -97,8 +100,8 @@ export async function checkVersion({
 export function showAlert({
   appName = "{appname}",
   title = "Atualização Disponível",
-  textClose = "Fechar",
-  textUpdate = "Atualizar Agora",
+  textClose = strings('version_check.textClose'),
+  textUpdate = strings('version_check.textUpdate'),
   description = `Está disponível na LOJA a nova Versão do Aplicativo ${appName}, clique em “${textUpdate}” para realizar a atualização. Esta nova Versão tem muitas novidades APROVEITE!`,
   onClose = () => {},
   onUpdate = () => {},

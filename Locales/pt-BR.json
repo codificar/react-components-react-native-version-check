@@ -1,0 +1,8 @@
+{
+    "version_check":{
+        "title": "Atualização Disponível",
+        "textClose": "Fechar",
+        "textUpdate": "Atualizar Agora",
+        "description": "Está disponível na LOJA a nova Versão do Aplicativo ${appName}, clique em “${textUpdate}” para realizar a atualização. Esta nova Versão tem muitas novidades APROVEITE!"
+    }
+}
